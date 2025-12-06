@@ -22,7 +22,7 @@ function generateAnonymousUserId(): string {
 
 // Default settings - enabled by default as per requirements
 export const DEFAULT_ANALYTICS_SETTINGS: AnalyticsSettingsConfig = {
-  enabled: true,
+  enabled: false,
   anonymousUserId: '',
 };
 
