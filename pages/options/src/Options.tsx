@@ -10,7 +10,7 @@ import { FirewallSettings } from './components/FirewallSettings';
 import { AnalyticsSettings } from './components/AnalyticsSettings';
 import { ProfileSettings } from './components/ProfileSettings';
 
-type TabTypes = 'general' | 'models' | 'firewall' | 'analytics' | 'form_data' | 'help';
+type TabTypes = 'general' | 'models' | 'firewall' | 'analytics' | 'form_data';
 
 const TABS: { id: TabTypes; icon: React.ComponentType<{ className?: string }>; label: string }[] = [
   { id: 'general', icon: FiSettings, label: t('options_tabs_general') },
@@ -18,7 +18,7 @@ const TABS: { id: TabTypes; icon: React.ComponentType<{ className?: string }>; l
   { id: 'firewall', icon: FiShield, label: t('options_tabs_firewall') },
   { id: 'analytics', icon: FiTrendingUp, label: 'Analytics' },
   { id: 'form_data', icon: FiUser, label: 'Form data' },
-  { id: 'help', icon: FiHelpCircle, label: t('options_tabs_help') },
+  // { id: 'help', icon: FiHelpCircle, label: t('options_tabs_help') },
 ];
 
 const Options = () => {
@@ -39,11 +39,11 @@ const Options = () => {
   }, []);
 
   const handleTabClick = (tabId: TabTypes) => {
-    if (tabId === 'help') {
-      window.open('https://nanobrowser.ai/docs', '_blank');
-    } else {
-      setActiveTab(tabId);
-    }
+    // if (tabId === 'help') {
+    //   window.open('#', '_blank');
+    // } else {
+    setActiveTab(tabId);
+    // }
   };
 
   const renderTabContent = () => {
