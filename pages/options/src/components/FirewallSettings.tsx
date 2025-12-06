@@ -214,6 +214,7 @@ export const FirewallSettings = ({ isDarkMode }: FirewallSettingsProps) => {
         <ul className={`list-disc space-y-2 pl-5 text-left text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
           {t('options_firewall_howItWorks')
             .split('\n')
+            .slice(0, 2)
             .map((rule, index) => (
               <li key={index}>{rule}</li>
             ))}
