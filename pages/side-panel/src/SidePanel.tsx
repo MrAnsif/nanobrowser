@@ -1000,14 +1000,19 @@ const SidePanel = () => {
   return (
     <div>
       <div
-        className={`flex h-screen flex-col ${isDarkMode ? 'bg-slate-900' : "bg-[url('/bg.jpg')] bg-cover bg-no-repeat"} overflow-hidden border ${isDarkMode ? 'border-sky-800' : 'border-[rgb(186,230,253)]'} rounded-2xl`}>
+        style={{
+          background: `radial-gradient(circle at 20% 30%, rgba(209,116,210,0.6), transparent 70%),
+radial-gradient(circle at 80% 70%, rgba(224,86,63,0.6), transparent 75%),
+linear-gradient(135deg, #1e0f2e, #3f567f, #1a2438)`,
+        }}
+        className={`flex h-screen flex-col  overflow-hidden rounded-2xl`}>
         <header className="header relative">
           <div className="header-logo">
             {showHistory ? (
               <button
                 type="button"
                 onClick={() => handleBackToChat(false)}
-                className={`${isDarkMode ? 'text-sky-400 hover:text-sky-300' : 'text-sky-400 hover:text-sky-500'} cursor-pointer`}
+                className={` text-white hover:text-neutral-300 font-semibold cursor-pointer`}
                 aria-label={t('nav_back_a11y')}>
                 {t('nav_back')}
               </button>
@@ -1022,7 +1027,7 @@ const SidePanel = () => {
                   type="button"
                   onClick={handleNewChat}
                   onKeyDown={e => e.key === 'Enter' && handleNewChat()}
-                  className={`header-icon ${isDarkMode ? 'text-sky-400 hover:text-sky-300' : 'text-sky-400 hover:text-sky-500'} cursor-pointer`}
+                  className={`header-icon  text-white hover:text-neutral-300 font-semibold cursor-pointer`}
                   aria-label={t('nav_newChat_a11y')}
                   tabIndex={0}>
                   <PiPlusBold size={20} />
@@ -1031,7 +1036,7 @@ const SidePanel = () => {
                   type="button"
                   onClick={handleLoadHistory}
                   onKeyDown={e => e.key === 'Enter' && handleLoadHistory()}
-                  className={`header-icon ${isDarkMode ? 'text-sky-400 hover:text-sky-300' : 'text-sky-400 hover:text-sky-500'} cursor-pointer`}
+                  className={`header-icon text-white hover:text-neutral-300 font-semibold cursor-pointer`}
                   aria-label={t('nav_loadHistory_a11y')}
                   tabIndex={0}>
                   <GrHistory size={20} />
@@ -1042,7 +1047,7 @@ const SidePanel = () => {
               type="button"
               onClick={() => chrome.runtime.openOptionsPage()}
               onKeyDown={e => e.key === 'Enter' && chrome.runtime.openOptionsPage()}
-              className={`header-icon ${isDarkMode ? 'text-sky-400 hover:text-sky-300' : 'text-sky-400 hover:text-sky-500'} cursor-pointer`}
+              className={`header-icon  text-white hover:text-neutral-300 font-semibold cursor-pointer`}
               aria-label={t('nav_settings_a11y')}
               tabIndex={0}>
               <FiSettings size={20} />
@@ -1064,10 +1069,9 @@ const SidePanel = () => {
           <>
             {/* Show loading state while checking model configuration */}
             {hasConfiguredModels === null && (
-              <div
-                className={`flex flex-1 items-center justify-center p-8 ${isDarkMode ? 'text-sky-300' : 'text-sky-600'}`}>
+              <div className={`flex flex-1 items-center justify-center p-8 text-white`}>
                 <div className="text-center">
-                  <div className="mx-auto mb-4 size-8 animate-spin rounded-full border-2 border-sky-400 border-t-transparent"></div>
+                  <div className="mx-auto mb-4 size-8 animate-spin rounded-full border-2 border-t-transparent"></div>
                   <p>{t('status_checkingConfig')}</p>
                 </div>
               </div>
@@ -1076,18 +1080,17 @@ const SidePanel = () => {
             {/* Show setup message when no models are configured */}
             {hasConfiguredModels === false && (
               <div
-                className={`flex flex-1 items-center justify-center p-8 ${isDarkMode ? 'text-sky-300' : 'text-sky-600'}`}>
+                className={`flex flex-1 items-center justify-center p-8 ${isDarkMode ? 'text-sky-300' : 'text-sky-200'}`}>
                 <div className="max-w-md text-center">
                   <img src="/icon-128.png" alt="Nanobrowser Logo" className="mx-auto mb-4 size-12" />
-                  <h3 className={`mb-2 text-lg font-semibold ${isDarkMode ? 'text-sky-200' : 'text-sky-700'}`}>
+                  <h3
+                    className={`mb-2 text-lg font-semibold bg-gradient-to-r to-purple-400 from-red-400 bg-clip-text text-transparent`}>
                     {t('welcome_title')}
                   </h3>
-                  <p className="mb-4">{t('welcome_instruction')}</p>
+                  <p className="mb-4 text-neutral-300">{t('welcome_instruction')}</p>
                   <button
                     onClick={() => chrome.runtime.openOptionsPage()}
-                    className={`my-4 rounded-lg px-4 py-2 font-medium transition-colors ${
-                      isDarkMode ? 'bg-sky-600 text-white hover:bg-sky-700' : 'bg-sky-500 text-white hover:bg-sky-600'
-                    }`}>
+                    className={`my-4 rounded-md px-4 py-2 font-medium transition-colors bg-white/20 hover:bg-white/10 text-white`}>
                     {t('welcome_openSettings')}
                   </button>
                 </div>
@@ -1099,8 +1102,7 @@ const SidePanel = () => {
               <>
                 {messages.length === 0 && (
                   <>
-                    <div
-                      className={`border-t ${isDarkMode ? 'border-sky-900' : 'border-sky-100'} mb-2 p-2 shadow-sm backdrop-blur-sm`}>
+                    <div className={`mb-2 p-2 shadow-sm backdrop-blur-sm`}>
                       <ChatInput
                         onSendMessage={handleSendMessage}
                         onStopTask={handleStopTask}
@@ -1121,14 +1123,13 @@ const SidePanel = () => {
                 )}
                 {messages.length > 0 && (
                   <div
-                    className={`scrollbar-gutter-stable flex-1 overflow-x-hidden overflow-y-scroll scroll-smooth p-2 ${isDarkMode ? 'bg-slate-900/80' : ''}`}>
+                    className={`scrollbar-gutter-stable flex-1 overflow-x-hidden overflow-y-scroll scroll-smooth p-2 bg-white/5 rounded-2xl `}>
                     <MessageList messages={messages} isDarkMode={isDarkMode} />
                     <div ref={messagesEndRef} />
                   </div>
                 )}
                 {messages.length > 0 && (
-                  <div
-                    className={`border-t ${isDarkMode ? 'border-sky-900' : 'border-sky-100'} p-2 shadow-sm backdrop-blur-sm`}>
+                  <div className={` p-2 shadow-sm backdrop-blur-sm`}>
                     <ChatInput
                       onSendMessage={handleSendMessage}
                       onStopTask={handleStopTask}

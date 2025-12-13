@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { FaTrash } from 'react-icons/fa';
-import { BsBookmark } from 'react-icons/bs';
+import { MdBookmarkBorder } from 'react-icons/md';
 import { t } from '@extension/i18n';
 
 interface ChatSession {
@@ -34,28 +34,36 @@ const ChatHistoryList: React.FC<ChatHistoryListProps> = ({
   };
 
   return (
-    <div className="h-full overflow-y-auto p-4">
-      <h2 className={`mb-4 text-lg font-semibold ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>
+    <div className="h-full overflow-y-auto p-4 custom-scrollbar">
+      <h2 className={`mb-4 text-lg font-bold tracking-wide ${isDarkMode ? 'text-white/90' : 'text-slate-800'}`}>
         {t('chat_history_title')}
       </h2>
       {sessions.length === 0 ? (
         <div
-          className={`rounded-lg ${isDarkMode ? 'bg-slate-800 text-gray-400' : 'bg-white/30 text-gray-500'} p-4 text-center backdrop-blur-sm`}>
+          className={`rounded-xl border p-6 text-center backdrop-blur-md ${
+            isDarkMode ? 'border-white/5 bg-slate-900/20 text-gray-400' : 'border-white/30 bg-white/20 text-slate-600'
+          }`}>
           {t('chat_history_empty')}
         </div>
       ) : (
-        <div className="space-y-2">
+        <div className="space-y-3">
           {sessions.map(session => (
             <div
               key={session.id}
-              className={`group relative rounded-lg ${
-                isDarkMode ? 'bg-slate-800 hover:bg-slate-700' : 'bg-white/50 hover:bg-white/70'
-              } p-3 backdrop-blur-sm transition-all`}>
-              <button onClick={() => onSessionSelect(session.id)} className="w-full text-left" type="button">
-                <h3 className={`text-sm font-medium ${isDarkMode ? 'text-gray-200' : 'text-gray-900'}`}>
+              className={`group relative rounded-xl border backdrop-blur-md transition-all duration-200 ${
+                isDarkMode
+                  ? 'border-white/5 bg-slate-900/30 hover:bg-slate-800/50 hover:border-white/10 hover:shadow-lg'
+                  : 'border-white/40 bg-white/20 hover:bg-white/40 hover:border-white/60 hover:shadow-md'
+              } p-3`}>
+              <button
+                onClick={() => onSessionSelect(session.id)}
+                className="w-full text-left outline-none"
+                type="button">
+                <h3
+                  className={`text-sm font-semibold truncate pr-6 ${isDarkMode ? 'text-gray-100' : 'text-slate-800'}`}>
                   {session.title}
                 </h3>
-                <p className={`mt-1 text-xs ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                <p className={`mt-1 text-xs font-medium ${isDarkMode ? 'text-white/40' : 'text-slate-500'}`}>
                   {formatDate(session.createdAt)}
                 </p>
               </button>
@@ -67,14 +75,14 @@ const ChatHistoryList: React.FC<ChatHistoryListProps> = ({
                     e.stopPropagation();
                     onSessionBookmark(session.id);
                   }}
-                  className={`absolute right-2 top-2 rounded p-1 opacity-0 transition-opacity group-hover:opacity-100 ${
+                  className={`absolute right-2 top-2 rounded-lg p-1.5 opacity-0 backdrop-blur-md transition-all group-hover:opacity-100 ${
                     isDarkMode
-                      ? 'bg-slate-700 text-sky-400 hover:bg-slate-600'
-                      : 'bg-white text-sky-500 hover:bg-gray-100'
+                      ? 'bg-white/10 text-purple-500 hover:bg-white/20 shadow-sm'
+                      : 'bg-white/60 text-purple-500 hover:bg-white/90 shadow-sm'
                   }`}
                   aria-label={t('chat_history_bookmark')}
                   type="button">
-                  <BsBookmark size={14} />
+                  <MdBookmarkBorder />
                 </button>
               )}
 
@@ -84,14 +92,14 @@ const ChatHistoryList: React.FC<ChatHistoryListProps> = ({
                   e.stopPropagation();
                   onSessionDelete(session.id);
                 }}
-                className={`absolute bottom-2 right-2 rounded p-1 opacity-0 transition-opacity group-hover:opacity-100 ${
+                className={`absolute bottom-2 right-2 rounded-lg p-1.5 opacity-0 backdrop-blur-md transition-all group-hover:opacity-100 ${
                   isDarkMode
-                    ? 'bg-slate-700 text-gray-400 hover:bg-slate-600'
-                    : 'bg-white text-gray-500 hover:bg-gray-100'
+                    ? 'bg-white/10 text-red-400 hover:bg-red-500/20 hover:text-red-300 shadow-sm'
+                    : 'bg-white/60 text-red-500 hover:bg-red-50 hover:text-red-600 shadow-sm'
                 }`}
                 aria-label={t('chat_history_delete')}
                 type="button">
-                <FaTrash size={14} />
+                <FaTrash size={12} />
               </button>
             </div>
           ))}
