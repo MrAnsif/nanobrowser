@@ -198,19 +198,19 @@ export const ModelSettings = ({ isDarkMode = false }: ModelSettingsProps) => {
   }, [providers]);
 
   // Add a click outside handler to close the dropdown
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      if (isProviderSelectorOpen && !target.closest('.provider-selector-container')) {
-        setIsProviderSelectorOpen(false);
-      }
-    };
+  // useEffect(() => {
+  //   const handleClickOutside = (event: MouseEvent) => {
+  //     const target = event.target as HTMLElement;
+  //     if (isProviderSelectorOpen && !target.closest('.provider-selector-container')) {
+  //       setIsProviderSelectorOpen(false);
+  //     }
+  //   };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isProviderSelectorOpen]);
+  //   document.addEventListener('mousedown', handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener('mousedown', handleClickOutside);
+  //   };
+  // }, [isProviderSelectorOpen]);
 
   // Create a memoized version of getAvailableModels
   const getAvailableModelsCallback = useCallback(async () => {
@@ -711,8 +711,7 @@ export const ModelSettings = ({ isDarkMode = false }: ModelSettingsProps) => {
   };
 
   const renderModelSelect = (agentName: AgentNameEnum) => (
-    <div
-      className={`rounded-lg border ${isDarkMode ? 'border-gray-700 bg-slate-800' : 'border-gray-200 bg-gray-50'} p-4`}>
+    <div className={`rounded-lg  p-4`}>
       <h3 className={`mb-2 text-lg font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
         {agentName.charAt(0).toUpperCase() + agentName.slice(1)}
       </h3>
@@ -1127,8 +1126,7 @@ export const ModelSettings = ({ isDarkMode = false }: ModelSettingsProps) => {
   return (
     <section className="space-y-6">
       {/* LLM Providers Section */}
-      <div
-        className={`rounded-lg border ${isDarkMode ? 'border-slate-700 bg-slate-800' : 'border-blue-100 bg-gray-50'} p-6 text-left shadow-sm`}>
+      <div className={`rounded-lg bg-black/30 backdrop-blur-md p-6 text-left shadow-sm`}>
         <h2 className={`mb-4 text-xl font-semibold ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>
           {t('options_models_providers_header')}
         </h2>
@@ -1562,68 +1560,64 @@ export const ModelSettings = ({ isDarkMode = false }: ModelSettingsProps) => {
             <Button
               variant="secondary"
               onClick={() => setIsProviderSelectorOpen(prev => !prev)}
-              className={`flex w-full items-center justify-center font-medium ${
-                isDarkMode
-                  ? 'border-blue-700 bg-blue-600 text-white hover:bg-blue-500'
-                  : 'border-blue-200 bg-blue-100 text-blue-800 hover:bg-blue-200'
-              }`}>
-              <span className="mr-2 text-sm">+</span>{' '}
+              className={`flex px-4 py-3 items-center justify-center font-medium bg-white text-purple-500 rounded-full hover:shadow-lg hover:shadow-purple-500/80 hover:brightness-110`}>
+              <span className="mr-2 text-base">+</span>{' '}
               <span className="text-sm">{t('options_models_addNewProvider')}</span>
             </Button>
-
-            {isProviderSelectorOpen && (
-              <div
-                className={`absolute z-10 mt-2 w-full overflow-hidden rounded-md border ${
-                  isDarkMode
-                    ? 'border-blue-600 bg-slate-700 shadow-lg shadow-slate-900/50'
-                    : 'border-blue-200 bg-white shadow-xl shadow-blue-100/50'
-                }`}>
-                <div className="py-1">
-                  {/* Map through provider types to create buttons */}
-                  {Object.values(ProviderTypeEnum)
-                    // Allow Azure to appear multiple times, but filter out other already added providers
-                    .filter(
-                      type =>
-                        type === ProviderTypeEnum.AzureOpenAI || // Always show Azure
-                        (type !== ProviderTypeEnum.CustomOpenAI &&
-                          !providersFromStorage.has(type) &&
-                          !modifiedProviders.has(type)),
-                    )
-                    .map(type => (
-                      <button
-                        key={type}
-                        type="button"
-                        className={`flex w-full items-center px-4 py-3 text-left text-sm ${
-                          isDarkMode
-                            ? 'text-blue-200 hover:bg-blue-600/30 hover:text-white'
-                            : 'text-blue-700 hover:bg-blue-100 hover:text-blue-800'
-                        } transition-colors duration-150`}
-                        onClick={() => handleProviderSelection(type)}>
-                        <span className="font-medium">{getDefaultDisplayNameFromProviderId(type)}</span>
-                      </button>
-                    ))}
-
-                  {/* Custom provider button (always shown) */}
+          </div>
+        </div>
+      </div>
+      {isProviderSelectorOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+          onClick={() => setIsProviderSelectorOpen(false)}>
+          <div
+            className={`relative w-full max-w-md mx-4 overflow-hidden rounded-lg border bg-neutral-900 shadow-xl`}
+            onClick={e => e.stopPropagation()}>
+            <div className="py-1">
+              {/* Map through provider types to create buttons */}
+              {Object.values(ProviderTypeEnum)
+                .filter(
+                  type =>
+                    type === ProviderTypeEnum.AzureOpenAI ||
+                    (type !== ProviderTypeEnum.CustomOpenAI &&
+                      !providersFromStorage.has(type) &&
+                      !modifiedProviders.has(type)),
+                )
+                .map(type => (
                   <button
+                    key={type}
                     type="button"
                     className={`flex w-full items-center px-4 py-3 text-left text-sm ${
                       isDarkMode
                         ? 'text-blue-200 hover:bg-blue-600/30 hover:text-white'
                         : 'text-blue-700 hover:bg-blue-100 hover:text-blue-800'
                     } transition-colors duration-150`}
-                    onClick={() => handleProviderSelection(ProviderTypeEnum.CustomOpenAI)}>
-                    <span className="font-medium">{t('options_models_providers_openaiCompatible')}</span>
+                    onClick={e => {
+                      e.stopPropagation();
+                      handleProviderSelection(type);
+                    }}>
+                    <span className="font-medium">{getDefaultDisplayNameFromProviderId(type)}</span>
                   </button>
-                </div>
-              </div>
-            )}
+                ))}
+
+              {/* Custom provider button */}
+              <button
+                type="button"
+                className={`flex w-full items-center px-4 py-3 text-left text-sm ${
+                  isDarkMode
+                    ? 'text-blue-200 hover:bg-blue-600/30 hover:text-white'
+                    : 'text-blue-700 hover:bg-blue-100 hover:text-blue-800'
+                } transition-colors duration-150`}
+                onClick={() => handleProviderSelection(ProviderTypeEnum.CustomOpenAI)}>
+                <span className="font-medium">{t('options_models_providers_openaiCompatible')}</span>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-
+      )}
       {/* Updated Agent Models Section */}
-      <div
-        className={`rounded-lg border ${isDarkMode ? 'border-slate-700 bg-slate-800' : 'border-blue-100 bg-gray-50'} p-6 text-left shadow-sm`}>
+      <div className={`rounded-lg bg-black/30 backdrop-blur-md p-6 text-left `}>
         <h2 className={`mb-4 text-left text-xl font-semibold ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>
           {t('options_models_selection_header')}
         </h2>
@@ -1635,8 +1629,7 @@ export const ModelSettings = ({ isDarkMode = false }: ModelSettingsProps) => {
       </div>
 
       {/* Speech-to-Text Model Selection */}
-      <div
-        className={`rounded-lg border ${isDarkMode ? 'border-slate-700 bg-slate-800' : 'border-blue-100 bg-gray-50'} p-6 text-left shadow-sm`}>
+      <div className={`rounded-lg bg-black/30 backdrop-blur-md  p-6 text-left shadow-sm`}>
         <h2 className={`mb-4 text-left text-xl font-semibold ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>
           {t('options_models_speechToText_header')}
         </h2>
