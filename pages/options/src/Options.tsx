@@ -14,9 +14,9 @@ import FloatingLines from './component/FloatingLines';
 type TabTypes = 'general' | 'models' | 'firewall' | 'analytics' | 'form_data';
 
 const TABS: { id: TabTypes; icon: React.ComponentType<{ className?: string }>; label: string }[] = [
-  { id: 'general', icon: FiSettings, label: t('options_tabs_general') },
+  // { id: 'general', icon: FiSettings, label: t('options_tabs_general') },
   { id: 'models', icon: FiCpu, label: t('options_tabs_models') },
-  { id: 'firewall', icon: FiShield, label: t('options_tabs_firewall') },
+  // { id: 'firewall', icon: FiShield, label: t('options_tabs_firewall') },
   // { id: 'analytics', icon: FiTrendingUp, label: 'Analytics' },
   { id: 'form_data', icon: FiUser, label: 'Form data' },
   // { id: 'help', icon: FiHelpCircle, label: t('options_tabs_help') },
@@ -49,12 +49,12 @@ const Options = () => {
 
   const renderTabContent = () => {
     switch (activeTab) {
-      case 'general':
-        return <GeneralSettings isDarkMode={isDarkMode} />;
+      // case 'general':
+      //   return <GeneralSettings isDarkMode={isDarkMode} />;
       case 'models':
         return <ModelSettings isDarkMode={isDarkMode} />;
-      case 'firewall':
-        return <FirewallSettings isDarkMode={isDarkMode} />;
+      // case 'firewall':
+      //   return <FirewallSettings isDarkMode={isDarkMode} />;
       // case 'analytics':
       //   return <AnalyticsSettings isDarkMode={isDarkMode} />;
       case 'form_data':

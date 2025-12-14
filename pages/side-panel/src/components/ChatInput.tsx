@@ -339,9 +339,9 @@ export default function ChatInput({
               className={`rounded-full px-4 py-1.5 text-sm font-medium text-white shadow-lg backdrop-blur-sm transition-all duration-300 ${
                 isSendButtonDisabled
                   ? 'cursor-not-allowed opacity-50 bg-slate-500'
-                  : ' bg-white/90 hover:shadow-purple-500/30 hover:brightness-110'
+                  : ' bg-white/90 hover:shadow-green-500/30 hover:brightness-110'
               }`}>
-              <LuSendHorizontal className="text-purple-500" />
+              <LuSendHorizontal className="text-green-600" />
             </button>
           )}
         </div>
