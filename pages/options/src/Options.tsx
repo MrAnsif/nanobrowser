@@ -72,11 +72,16 @@ const Options = () => {
           // Array - specify line count per wave; Number - same count for all waves
           lineCount={[10, 15, 20]}
           // Array - specify line distance per wave; Number - same distance for all waves
-          lineDistance={[8, 6, 4]}
-          bendRadius={5.0}
-          bendStrength={-0.5}
+          lineDistance={70}
+          bendRadius={30}
+          bendStrength={-15}
           interactive={true}
           parallax={true}
+          linesGradient={[
+            '#808000', // Olive Green
+            '#006400', // Dark Green
+            '#50C878', // Vibrant Emerald
+          ]}
         />
       </div>
       {/* Vertical Navigation Bar */}
@@ -91,8 +96,8 @@ const Options = () => {
                   className={`flex w-full items-center space-x-2 rounded-full px-4 py-2 text-left text-base font-semibold pointer-events-auto
                     ${
                       activeTab !== item.id
-                        ? `bg-white/70 text-purple-800 hover:translate-x-1 hover:bg-white/85`
-                        : `bg-white/95 text-pink-600  translate-x-3`
+                        ? `bg-white/70 text-black hover:translate-x-1 hover:bg-white/85`
+                        : `bg-white/95 text-[#006400]  translate-x-3`
                     }`}>
                   <item.icon className="h-4 w-4" />
                   <span>{item.label}</span>

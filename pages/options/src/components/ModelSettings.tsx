@@ -1560,7 +1560,7 @@ export const ModelSettings = ({ isDarkMode = false }: ModelSettingsProps) => {
             <Button
               variant="secondary"
               onClick={() => setIsProviderSelectorOpen(prev => !prev)}
-              className={`flex px-4 py-3 items-center justify-center font-medium bg-white text-purple-500 rounded-full hover:shadow-lg hover:shadow-purple-500/80 hover:brightness-110`}>
+              className={`flex px-4 py-3 items-center justify-center font-medium bg-white text-green-600 rounded-full hover:shadow-lg hover:shadow-green-500/80 hover:brightness-110`}>
               <span className="mr-2 text-base">+</span>{' '}
               <span className="text-sm">{t('options_models_addNewProvider')}</span>
             </Button>
