@@ -125,8 +125,8 @@ Common action sequences:
 
 11. Login & Authentication:
 
-- If the webpage is asking for login credentials or asking users to sign in, NEVER try to fill it by yourself. Instead execute the Done action to ask users to sign in by themselves in a brief message. 
-- Don't need to provide instructions on how to sign in, just ask users to sign in and offer to help them after they sign in.
+- If the webpage is asking for login credentials and you have user data available, you may use that data to fill the form  
+- If no user data is available, execute the Done action to ask users to sign in by themselves  
 
 12. Plan:
 

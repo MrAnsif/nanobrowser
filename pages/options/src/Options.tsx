@@ -9,13 +9,14 @@ import { ModelSettings } from './components/ModelSettings';
 import { FirewallSettings } from './components/FirewallSettings';
 import { AnalyticsSettings } from './components/AnalyticsSettings';
 import { ProfileSettings } from './components/ProfileSettings';
+import FloatingLines from './component/FloatingLines';
 
 type TabTypes = 'general' | 'models' | 'firewall' | 'analytics' | 'form_data';
 
 const TABS: { id: TabTypes; icon: React.ComponentType<{ className?: string }>; label: string }[] = [
-  { id: 'general', icon: FiSettings, label: t('options_tabs_general') },
+  // { id: 'general', icon: FiSettings, label: t('options_tabs_general') },
   { id: 'models', icon: FiCpu, label: t('options_tabs_models') },
-  { id: 'firewall', icon: FiShield, label: t('options_tabs_firewall') },
+  // { id: 'firewall', icon: FiShield, label: t('options_tabs_firewall') },
   // { id: 'analytics', icon: FiTrendingUp, label: 'Analytics' },
   { id: 'form_data', icon: FiUser, label: 'Form data' },
   // { id: 'help', icon: FiHelpCircle, label: t('options_tabs_help') },
@@ -48,12 +49,12 @@ const Options = () => {
 
   const renderTabContent = () => {
     switch (activeTab) {
-      case 'general':
-        return <GeneralSettings isDarkMode={isDarkMode} />;
+      // case 'general':
+      //   return <GeneralSettings isDarkMode={isDarkMode} />;
       case 'models':
         return <ModelSettings isDarkMode={isDarkMode} />;
-      case 'firewall':
-        return <FirewallSettings isDarkMode={isDarkMode} />;
+      // case 'firewall':
+      //   return <FirewallSettings isDarkMode={isDarkMode} />;
       // case 'analytics':
       //   return <AnalyticsSettings isDarkMode={isDarkMode} />;
       case 'form_data':
@@ -64,25 +65,39 @@ const Options = () => {
   };
 
   return (
-    <div
-      className={`flex min-h-screen min-w-[768px] ${isDarkMode ? 'bg-slate-900' : "bg-[url('/bg.jpg')] bg-cover bg-center"} ${isDarkMode ? 'text-gray-200' : 'text-gray-900'}`}>
+    <div className={`flex min-h-screen min-w-[768px] `}>
+      <div style={{ width: '100%', height: '100%' }} className="fixed top-0 left-0">
+        <FloatingLines
+          enabledWaves={['top', 'middle', 'bottom']}
+          // Array - specify line count per wave; Number - same count for all waves
+          lineCount={[10, 15, 20]}
+          // Array - specify line distance per wave; Number - same distance for all waves
+          lineDistance={70}
+          bendRadius={30}
+          bendStrength={-15}
+          interactive={true}
+          parallax={true}
+          linesGradient={[
+            '#808000', // Olive Green
+            '#006400', // Dark Green
+            '#50C878', // Vibrant Emerald
+          ]}
+        />
+      </div>
       {/* Vertical Navigation Bar */}
-      <nav
-        className={`w-48 border-r ${isDarkMode ? 'border-slate-700 bg-slate-800/80' : 'border-white/20 bg-[#0EA5E9]/10'} backdrop-blur-sm`}>
-        <div className="p-4">
-          <h1 className={`mb-6 text-xl font-bold ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>
-            {t('options_nav_header')}
-          </h1>
+      <nav className={`w-52 border-r border-neutral-800 rounded-r-lg bg-black/40 backdrop-blur-lg pointer-events-none`}>
+        <div className="p-4 sticky top-0">
+          <h1 className={`mb-6 text-xl font-bold text-gray-200`}>{t('options_nav_header')}</h1>
           <ul className="space-y-2">
             {TABS.map(item => (
               <li key={item.id}>
                 <Button
                   onClick={() => handleTabClick(item.id)}
-                  className={`flex w-full items-center space-x-2 rounded-lg px-4 py-2 text-left text-base 
+                  className={`flex w-full items-center space-x-2 rounded-full px-4 py-2 text-left text-base font-semibold pointer-events-auto
                     ${
                       activeTab !== item.id
-                        ? `${isDarkMode ? 'bg-slate-700/70 text-gray-300 hover:text-white' : 'bg-[#0EA5E9]/15 font-medium text-gray-700 hover:text-white'} backdrop-blur-sm`
-                        : `${isDarkMode ? 'bg-sky-800/50' : ''} text-white backdrop-blur-sm`
+                        ? `bg-white/70 text-black hover:translate-x-1 hover:bg-white/85`
+                        : `bg-white/95 text-[#006400]  translate-x-3`
                     }`}>
                   <item.icon className="h-4 w-4" />
                   <span>{item.label}</span>
@@ -94,7 +109,7 @@ const Options = () => {
       </nav>
 
       {/* Main Content Area */}
-      <main className={`flex-1 ${isDarkMode ? 'bg-slate-800/50' : 'bg-white/10'} p-8 backdrop-blur-sm`}>
+      <main className={`flex-1 p-8 `}>
         <div className="mx-auto min-w-[512px] max-w-screen-lg">{renderTabContent()}</div>
       </main>
     </div>

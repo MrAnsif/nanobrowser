@@ -1,6 +1,6 @@
-Add this at the top of the file
-body {
-  border-color: rgb(159, 6, 11) !important; /* sky-200 color */
+Add this at the top of the file body {
+  border-color: rgb(159, 6, 11) !important;
+  /* sky-200 color */
 }
 
 /* Remove unused classes: .App, .App-logo, .App-header */
@@ -43,11 +43,11 @@ code {
   ::-webkit-scrollbar-track {
     background: #1e293b;
   }
-  
+
   ::-webkit-scrollbar-thumb {
     background: #0ea5e9;
   }
-  
+
   ::-webkit-scrollbar-thumb:hover {
     background: #38bdf8;
   }
@@ -117,44 +117,54 @@ code {
 .scrollbar-gutter-stable::-webkit-scrollbar {
   width: 6px;
 }
+
 .scrollbar-gutter-stable::-webkit-scrollbar-track {
-    background: #67676730;  /* slate-800 */
-  }
-  
-  .scrollbar-gutter-stable::-webkit-scrollbar-thumb {
-    background: #8864b2;  /* sky-500 */
-  }
-  
-  .scrollbar-gutter-stable::-webkit-scrollbar-thumb:hover {
-    background: #775a98;  /* sky-400 */
-  }
+  background: #41684b30;
+  /* slate-800 */
+}
+
+.scrollbar-gutter-stable::-webkit-scrollbar-thumb {
+  background: #006400;
+  /* sky-500 */
+}
+
+.scrollbar-gutter-stable::-webkit-scrollbar-thumb:hover {
+  background: #018701;
+  /* sky-400 */
+}
 
 /* Dark mode scrollbar for scrollbar-gutter-stable */
 @media (prefers-color-scheme: dark) {
   .scrollbar-gutter-stable::-webkit-scrollbar-track {
-    background: #67676730;  /* slate-800 */
+    background: #41684b30;
+    /* slate-800 */
   }
-  
+
   .scrollbar-gutter-stable::-webkit-scrollbar-thumb {
-    background: #8864b2;  /* sky-500 */
+    background: #006400;
+    /* sky-500 */
   }
-  
+
   .scrollbar-gutter-stable::-webkit-scrollbar-thumb:hover {
-    background: #775a98;  /* sky-400 */
+    background: #018701;
+    /* sky-400 */
   }
 }
 
 /* Dark mode text and background colors */
 @media (prefers-color-scheme: dark) {
   .dark-mode-text {
-    color: #e2e8f0 !important; /* slate-200 */
+    color: #e2e8f0 !important;
+    /* slate-200 */
   }
-  
+
   .dark-mode-bg {
-    background-color: #1e293b !important; /* slate-800 */
+    background-color: #1e293b !important;
+    /* slate-800 */
   }
-  
+
   .dark-mode-border {
-    border-color: #475569 !important; /* slate-600 */
+    border-color: #475569 !important;
+    /* slate-600 */
   }
 }

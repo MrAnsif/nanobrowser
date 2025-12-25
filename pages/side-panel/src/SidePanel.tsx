@@ -1001,9 +1001,9 @@ const SidePanel = () => {
     <div>
       <div
         style={{
-          background: `radial-gradient(circle at 20% 30%, rgba(209,116,210,0.6), transparent 70%),
-radial-gradient(circle at 80% 70%, rgba(224,86,63,0.6), transparent 75%),
-linear-gradient(135deg, #1e0f2e, #3f567f, #1a2438)`,
+          background: `
+radial-gradient(circle at 80% 70%, rgba(0, 0, 0), transparent 75%),
+linear-gradient(135deg, #006400, #000, #808000)`,
         }}
         className={`flex h-screen flex-col  overflow-hidden rounded-2xl`}>
         <header className="header relative">
@@ -1079,18 +1079,17 @@ linear-gradient(135deg, #1e0f2e, #3f567f, #1a2438)`,
 
             {/* Show setup message when no models are configured */}
             {hasConfiguredModels === false && (
-              <div
-                className={`flex flex-1 items-center justify-center p-8 ${isDarkMode ? 'text-sky-300' : 'text-sky-200'}`}>
+              <div className={`flex flex-1 items-center justify-center p-8 `}>
                 <div className="max-w-md text-center">
                   <img src="/icon-128.png" alt="Nanobrowser Logo" className="mx-auto mb-4 size-12" />
                   <h3
-                    className={`mb-2 text-lg font-semibold bg-gradient-to-r to-purple-400 from-red-400 bg-clip-text text-transparent`}>
+                    className={`mb-2 text-lg font-semibold bg-gradient-to-r from-[#808000] to-[#006400]  bg-clip-text text-transparent`}>
                     {t('welcome_title')}
                   </h3>
                   <p className="mb-4 text-neutral-300">{t('welcome_instruction')}</p>
                   <button
                     onClick={() => chrome.runtime.openOptionsPage()}
-                    className={`my-4 rounded-md px-4 py-2 font-medium transition-colors bg-white/20 hover:bg-white/10 text-white`}>
+                    className={`my-4 rounded-full px-4 py-2 font-medium transition-colors bg-white/20 hover:bg-white/10 text-white`}>
                     {t('welcome_openSettings')}
                   </button>
                 </div>

@@ -1,3 +1,4 @@
+// profilesettings
 import { useState, useEffect } from 'react';
 import { profileStore, type ProfileData } from '@extension/storage/lib/stores/profileStore';
 import { useStorage } from '@extension/shared';
@@ -95,60 +96,64 @@ export const ProfileSettings: React.FC<ProfileSettingsProps> = ({ isDarkMode }) 
   };
 
   return (
-    <div className="space-y-6">
-      <h2 className={`text-2xl font-bold ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>Profile Settings</h2>
-      <p className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-        Store your personal information to automatically fill forms across websites.
-      </p>
+    <section className="space-y-6">
+      {/* Basic Information Section */}
+      <div className="rounded-lg bg-black/30 backdrop-blur-sm pointer-events-none p-6 text-left shadow-sm">
+        <h2 className={`mb-2 text-xl font-semibold ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>
+          Profile Settings
+        </h2>
+        <p className={`mb-6 text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+          Store your personal information to automatically fill forms across websites.
+        </p>
 
-      {/* Predefined Fields */}
-      <div>
-        <h3 className={`text-lg font-semibold mb-4 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-          Basic Information
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {predefinedFields.map(field => (
-            <div key={field.key}>
-              <label className={`block text-sm font-medium mb-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                {field.label}
-              </label>
-              <input
-                type="text"
-                value={formData[field.key] || ''}
-                onChange={e => handleFieldChange(field.key, e.target.value)}
-                className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  isDarkMode ? 'bg-slate-700 border-slate-600 text-gray-200' : 'bg-white border-gray-300 text-gray-900'
-                }`}
-                placeholder={`Enter your ${field.label.toLowerCase()}`}
-              />
-            </div>
-          ))}
+        <div>
+          <h3 className={`mb-4 text-lg font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+            Basic Information
+          </h3>
+          <div className="space-y-3">
+            {predefinedFields.map(field => (
+              <div key={field.key} className="flex items-center">
+                <label
+                  htmlFor={field.key}
+                  className={`w-40 text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                  {field.label}
+                </label>
+                <input
+                  id={field.key}
+                  type="text"
+                  value={formData[field.key] || ''}
+                  onChange={e => handleFieldChange(field.key, e.target.value)}
+                  className="flex-1 rounded-md border text-sm text-[#006400] bg-white/80 pointer-events-auto px-3 py-2 outline-none"
+                  placeholder={`Enter your ${field.label.toLowerCase()}`}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Custom Fields */}
-      <div>
-        <h3 className={`text-lg font-semibold mb-4 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-          Custom Fields
-        </h3>
+      {/* Custom Fields Section */}
+      <div className="rounded-lg bg-black/30 backdrop-blur-sm pointer-events-none p-6 text-left shadow-sm">
+        <h3 className={`mb-4 text-lg font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>Custom Fields</h3>
 
         {/* Add new custom field */}
-        <div className="flex gap-2 mb-4">
+        <div className="flex items-center gap-2 mb-4">
+          <label className={`w-40 text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+            Add Field
+          </label>
           <input
             type="text"
             value={newFieldLabel}
             onChange={e => setNewFieldLabel(e.target.value)}
             onKeyPress={e => e.key === 'Enter' && addCustomField()}
-            className={`flex-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-              isDarkMode ? 'bg-slate-700 border-slate-600 text-gray-200' : 'bg-white border-gray-300 text-gray-900'
-            }`}
+            className="flex-1 rounded-md border text-sm bg-white/80 pointer-events-auto px-3 py-2 outline-none"
             placeholder="Enter field name (e.g., Passport Number, LinkedIn Profile)"
           />
           <Button
             onClick={addCustomField}
-            className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 flex items-center gap-2">
+            className="rounded-full border text-green-600 border-white bg-white/50 hover:bg-white/60 shadow-md pointer-events-auto px-4 py-2 flex items-center gap-2">
             <FiPlus />
-            Add
+            <span className="text-sm">Add</span>
           </Button>
         </div>
 
@@ -156,58 +161,51 @@ export const ProfileSettings: React.FC<ProfileSettingsProps> = ({ isDarkMode }) 
         {customFields.length > 0 ? (
           <div className="space-y-3">
             {customFields.map(field => (
-              <div key={field.key} className="flex gap-2 items-center">
-                <input
-                  type="text"
-                  value={field.label}
-                  readOnly
-                  className={`w-1/3 px-3 py-2 border rounded-md ${
-                    isDarkMode
-                      ? 'bg-slate-800 border-slate-600 text-gray-300'
-                      : 'bg-gray-50 border-gray-300 text-gray-700'
-                  }`}
-                  placeholder="Field name"
-                />
+              <div key={field.key} className="flex items-center gap-2">
+                <div className={`w-40 text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                  {field.label}
+                </div>
                 <input
                   type="text"
                   value={formData[field.key] || ''}
                   onChange={e => handleFieldChange(field.key, e.target.value)}
-                  className={`flex-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                    isDarkMode
-                      ? 'bg-slate-700 border-slate-600 text-gray-200'
-                      : 'bg-white border-gray-300 text-gray-900'
-                  }`}
+                  className="flex-1 rounded-md border text-sm text-[#006400] bg-white/80 pointer-events-auto px-3 py-2 outline-none"
                   placeholder={`Enter ${field.label.toLowerCase()}`}
                 />
                 <Button
                   onClick={() => removeCustomField(field.key)}
-                  className="px-3 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 flex items-center justify-center">
+                  className="rounded-full border text-red-600 border-white bg-white/50 hover:bg-white/60 shadow-md pointer-events-auto px-3 py-2 flex items-center justify-center">
                   <FiTrash2 />
                 </Button>
               </div>
             ))}
           </div>
         ) : (
-          <p className={`text-sm ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>
+          <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
             No custom fields added yet. Add fields specific to your needs above.
           </p>
         )}
       </div>
 
-      {/* Action Buttons */}
-      <div className="flex space-x-4">
-        <Button
-          onClick={handleSave}
-          className={`px-4 py-2 rounded-md transition-all duration-300
-            ${saved ? 'bg-green-600 hover:bg-green-700' : 'bg-blue-600 hover:bg-blue-700'}
-            text-white
-          `}>
-          {saved ? 'Data Saved' : 'Save Data'}
-        </Button>
-        <Button onClick={handleClear} className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">
-          Clear All Data
-        </Button>
+      {/* Action Buttons Section */}
+      <div className="rounded-lg bg-black/30 backdrop-blur-sm pointer-events-none p-6 text-left shadow-sm">
+        <div className="flex space-x-4">
+          <Button
+            onClick={handleSave}
+            className={`rounded-full border pointer-events-auto px-6 py-3 font-medium shadow-md transition-all duration-300 ${
+              saved
+                ? 'text-[#006400] border-white bg-white/50 hover:bg-white/60'
+                : 'text-[#006400] border-white bg-white/50 hover:bg-white/60'
+            }`}>
+            <span className="text-sm">{saved ? 'Data Saved ✓' : 'Save Data'}</span>
+          </Button>
+          <Button
+            onClick={handleClear}
+            className="rounded-full border text-red-600 border-white bg-white/50 hover:bg-white/60 shadow-md pointer-events-auto px-6 py-3 font-medium">
+            <span className="text-sm">Clear All Data</span>
+          </Button>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
