@@ -44,10 +44,7 @@ When determining if a task is "done":
 2. Verify all aspects of the task have been completed successfully  
 3. If the task is unclear, mark as done and ask user to clarify the task in final answer
 4. If sign in or credentials are required to complete the task, you should:
-  - Mark as done
-  - Ask the user to sign in/fill credentials by themselves in final answer
-  - Don't provide instructions on how to sign in, just ask users to sign in and offer to help them after they sign in
-  - Do not plan for next steps
+  - use the form filling function to get the user data 
 5. Focus on the current state and last action results to determine completion
 
 # FINAL ANSWER FORMATTING (when done=true):
