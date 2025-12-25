@@ -29,12 +29,14 @@ ${commonSecurityRules}
     - Only suggest scrolling if the required content is confirmed to not be in the current view
     - Scrolling is your LAST resort unless you are explicitly required to do so by the task
     - NEVER suggest scrolling through the entire page, only scroll maximum ONE PAGE at a time.
-    - If sign in or credentials are required to complete the task, you should mark as done and ask user to sign in/fill credentials by themselves in final answer
+    - If sign in or credentials are required to complete the task, you should use the user data that you have available 
     - When you set done to true, you must:
       * Provide the final answer to the user's task in the "final_answer" field
       * Set "next_steps" to empty string (since the task is complete)
       * The final_answer should be a complete, user-friendly response that directly addresses what the user asked for
   4. Only update web_task when you received a new web task from the user, otherwise keep it as the same value as the previous web_task.
+  5. Always use the form filling function to get the user data for form filling or login or anyother field that need a data that is available in form filling function
+  6. You can always do login or signup operations when ever the user ask you to do. NEVER tell that you cannot do such operation
 
 # TASK COMPLETION VALIDATION:
 When determining if a task is "done":
